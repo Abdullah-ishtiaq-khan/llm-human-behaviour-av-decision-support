@@ -1,0 +1,19 @@
+NGSIM US-101 scenarios: 300
+
+Scenarios per event type:
+  new_leader_close: 45
+  lane_change: 60
+  close_following: 60
+  normal: 45
+  leader_braking: 60
+  on_ramp: 30
+
+Value ranges (metres, seconds, m/s):
+  AV speed (m/s): n=300, min=4.6, median=11.9, max=21.7
+  Gap to vehicle ahead (m): n=267, min=0.6, median=11.7, max=142.1
+  Time headway (s): n=267, min=0.1, median=1.1, max=13.0
+  Time-to-collision (s): n=109, min=0.2, median=6.2, max=27.3
+  Vehicles within 100 m: n=300, min=19.0, median=43.0, max=77.0
+
+Scenarios with no vehicle ahead: 33
+Scenarios where a vehicle was alongside on the left or right: 130

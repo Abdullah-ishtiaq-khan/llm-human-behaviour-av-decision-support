@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AV Decision Support Prototype</title>
+<link rel="icon" href="data:,">
+<style>
+/* ------------------------------------------------------------------ colours (light + dark) */
+:root {
+  --bg: #f4f6f9; --card: #ffffff; --text: #17202e; --muted: #5b6678; --border: #d9dfe8;
+  --accent: #1f5fbf; --accent-text: #ffffff; --field: #ffffff;
+  --ok-bg: #e3f4e8; --ok-text: #14602d; --warn-bg: #fdf0d3; --warn-text: #7a4b00;
+  --bad-bg: #fbe3e1; --bad-text: #9b1c14; --neutral-bg: #e9edf3; --neutral-text: #2d3a4f;
+  --shadow: 0 1px 2px rgba(20, 30, 50, .06), 0 4px 14px rgba(20, 30, 50, .05);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #11151c; --card: #1a202a; --text: #e8edf4; --muted: #9aa6b8; --border: #2f3948;
+    --accent: #5b9bff; --accent-text: #0b1220; --field: #121821;
+    --ok-bg: #173a25; --ok-text: #8fe0ad; --warn-bg: #3f3010; --warn-text: #f2cd7a;
+    --bad-bg: #4a1d1a; --bad-text: #ff9f98; --neutral-bg: #263040; --neutral-text: #c9d4e4;
+    --shadow: none;
+  }
+}
+
+/* ------------------------------------------------------------------ layout */
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+header { padding: 22px 16px 6px; max-width: 1220px; margin: 0 auto; }
+header h1 { margin: 0 0 4px; font-size: 24px; }
+header p { margin: 0; color: var(--muted); }
+.status { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+main { max-width: 1220px; margin: 0 auto; padding: 12px 16px 40px; display: grid; gap: 16px;
+       grid-template-columns: minmax(320px, 440px) 1fr; align-items: start; }
+@media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); }
+.card + .card { margin-top: 16px; }
+h2 { font-size: 16px; margin: 0 0 12px; }
+h3 { font-size: 13px; margin: 0 0 6px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.section { margin-top: 18px; }
+.section:first-child { margin-top: 0; }
+
+/* ------------------------------------------------------------------ form */
+label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 3px; }
+select, input[type=number] { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--field);
+  color: var(--text); font: inherit; }
+select:focus, input:focus, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+input:disabled, select:disabled { opacity: .5; }
+fieldset { border: 1px solid var(--border); border-radius: 10px; margin: 0 0 12px; padding: 10px 12px 12px; }
+legend { font-size: 13px; font-weight: 600; padding: 0 6px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+.row.one { grid-template-columns: 1fr; }
+.check { display: flex; gap: 8px; align-items: center; color: var(--text); font-size: 14px; margin: 0; }
+.check input { width: 17px; height: 17px; }
+.buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+button { font: inherit; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; }
+button.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); font-weight: 600; }
+button:disabled { opacity: .55; cursor: wait; }
+.hint { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+.preview { font-size: 13.5px; background: var(--neutral-bg); color: var(--neutral-text); border-radius: 8px; padding: 9px 11px; margin-top: 10px; }
+
+/* ------------------------------------------------------------------ results */
+.empty { color: var(--muted); text-align: center; padding: 38px 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; gap: 5px; align-items: baseline; padding: 3px 10px; border-radius: 999px; font-size: 13px; background: var(--neutral-bg); color: var(--neutral-text); }
+.chip b { font-weight: 600; }
+.chip.ok { background: var(--ok-bg); color: var(--ok-text); }
+.chip.warn { background: var(--warn-bg); color: var(--warn-text); }
+.chip.bad { background: var(--bad-bg); color: var(--bad-text); }
+.chip.chosen { outline: 2px solid var(--accent); font-weight: 600; }
+.answer { border-left: 6px solid var(--border); border-radius: 8px; background: var(--neutral-bg); padding: 12px 14px; }
+.answer.low { border-color: #2e9d57; } .answer.medium { border-color: #d89a1b; } .answer.high { border-color: #d6382d; }
+.answer .action { font-size: 22px; font-weight: 700; margin: 0 0 6px; }
+.answer p { margin: 6px 0 0; }
+.answer .k { color: var(--muted); font-size: 13px; }
+.banner { border-radius: 8px; padding: 9px 12px; font-size: 14px; }
+.banner.ok { background: var(--ok-bg); color: var(--ok-text); }
+.banner.warn { background: var(--warn-bg); color: var(--warn-text); }
+.banner.bad { background: var(--bad-bg); color: var(--bad-text); }
+.banner ul { margin: 6px 0 0 18px; padding: 0; }
+.banner.info { background: var(--neutral-bg); color: var(--neutral-text); }
+details { margin-top: 8px; }
+summary { cursor: pointer; color: var(--accent); font-size: 14px; }
+pre { margin: 8px 0 0; padding: 10px; border-radius: 8px; background: var(--field); border: 1px solid var(--border); overflow: auto; font-size: 12.5px; max-height: 320px; }
+.spinner { display: inline-block; width: 16px; height: 16px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%;
+  animation: spin 0.9s linear infinite; vertical-align: -3px; margin-right: 8px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+footer { max-width: 1220px; margin: 0 auto; padding: 0 16px 28px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>AV Decision Support Prototype</h1>
+  <p>High-level driving recommendations from real NGSIM US-101 traffic, using Llama 3.1 8B with a rule-based safety filter.</p>
+  <div class="status" id="status"></div>
+</header>
+
+<main>
+  <!-- ============================================================ LEFT: choose or type a situation -->
+  <section class="card" aria-labelledby="in-title">
+    <h2 id="in-title">1. Choose or describe a situation</h2>
+
+    <label for="scenario">Pick one of the real scenarios</label>
+    <select id="scenario"><option value="">Loading scenarios...</option></select>
+    <div class="buttons" style="margin-top:8px">
+      <button type="button" id="randomBtn">Random scenario</button>
+      <button type="button" id="customBtn">Start from scratch</button>
+    </div>
+    <div class="preview" id="preview" hidden></div>
+    <p class="hint">Picking a scenario fills in the form. You can then change any value to try your own version.</p>
+
+    <form id="f" class="section" novalidate>
+      <fieldset>
+        <legend>The AV</legend>
+        <div class="row">
+          <div><label for="av_speed_kmh">Speed (km/h)</label><input id="av_speed_kmh" type="number" min="0" max="150" step="1" value="50"></div>
+          <div><label for="lane">Lane</label>
+            <select id="lane">
+              <option value="1">Lane 1 (left)</option><option value="2">Lane 2</option><option value="3" selected>Lane 3</option>
+              <option value="4">Lane 4</option><option value="5">Lane 5 (right)</option><option value="ramp">On-ramp</option>
+            </select></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Vehicle ahead</legend>
+        <label class="check"><input type="checkbox" id="ahead_exists" checked> There is a vehicle ahead in the same lane</label>
+        <div class="row">
+          <div><label for="ahead_gap_m">Gap (m)</label><input id="ahead_gap_m" type="number" min="0.5" max="200" step="0.1" value="20"></div>
+          <div><label for="ahead_speed_kmh">Its speed (km/h)</label><input id="ahead_speed_kmh" type="number" min="0" max="200" step="1" value="45"></div>
+        </div>
+        <div class="row one">
+          <div><label for="ahead_trend">What it is doing</label>
+            <select id="ahead_trend"><option value="slowing">Slowing down</option><option value="steady" selected>Steady</option><option value="speeding up">Speeding up</option></select></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Vehicle behind</legend>
+        <label class="check"><input type="checkbox" id="behind_exists" checked> There is a vehicle behind in the same lane</label>
+        <div class="row">
+          <div><label for="behind_gap_m">Gap (m)</label><input id="behind_gap_m" type="number" min="0.5" max="200" step="0.1" value="25"></div>
+          <div><label for="behind_speed_kmh">Its speed (km/h)</label><input id="behind_speed_kmh" type="number" min="0" max="200" step="1" value="50"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Side lanes and traffic</legend>
+        <div class="row">
+          <div><label for="left_lane">Left lane</label>
+            <select id="left_lane"><option value="none">No lane</option><option value="free">Free</option><option value="alongside">Alongside</option><option value="close">Close traffic</option></select></div>
+          <div><label for="right_lane">Right lane</label>
+            <select id="right_lane"><option value="none">No lane</option><option value="free">Free</option><option value="alongside">Alongside</option><option value="close">Close traffic</option></select></div>
+        </div>
+        <div class="row one">
+          <div><label for="traffic_100m">Vehicles within 100 m (all lanes)</label><input id="traffic_100m" type="number" min="0" max="150" step="1" value="30"></div>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="primary" id="goBtn">Get recommendation</button>
+      <p class="hint" id="goHint">Llama runs on this laptop's CPU, so an answer takes about 30 seconds.</p>
+    </form>
+  </section>
+
+  <!-- ============================================================ RIGHT: what the system decided -->
+  <section aria-labelledby="out-title" aria-live="polite">
+    <div class="card" id="result">
+      <h2 id="out-title">2. Recommendation</h2>
+      <div class="empty" id="empty">Choose a scenario or fill in the form, then press <b>Get recommendation</b>.</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Research prototype: the recommendation is high-level decision support, not control of a vehicle.
+  Scenarios come from NGSIM US-101 (US Department of Transportation). The safety filter, the labels and the automatic check are rules written for this project.
+</footer>
+
+<script>
+"use strict";
+/* ============================================================ small helpers */
+const $ = (id) => document.getElementById(id);
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined && text !== null) n.textContent = text;    // textContent: answers from Llama are never treated as HTML
+  return n;
+}
+const FIELDS = ["av_speed_kmh", "lane", "ahead_exists", "ahead_gap_m", "ahead_speed_kmh", "ahead_trend",
+                "behind_exists", "behind_gap_m", "behind_speed_kmh", "left_lane", "right_lane", "traffic_100m"];
+const TYPE_NAMES = { close_following: "Close following", leader_braking: "Leader braking", lane_change: "Lane change",
+                     new_leader_close: "New leader close", on_ramp: "On-ramp", normal: "Normal driving" };
+let pickedId = "";          // scenario currently picked ("" = typing from scratch)
+let originalForm = null;    // form values of the picked scenario, to detect edits
+let pickedReal = null;      // what the real driver did (reference only)
+let busy = false;
+
+/* ============================================================ form <-> values */
+function getForm() {
+  const v = {};
+  for (const k of FIELDS) {
+    const n = $(k);
+    v[k] = n.type === "checkbox" ? n.checked : (n.tagName === "SELECT" ? n.value : Number(n.value));
+  }
+  return v;
+}
+function setForm(v) {
+  for (const k of FIELDS) {
+    const n = $(k);
+    if (n.type === "checkbox") n.checked = !!v[k]; else n.value = v[k];
+  }
+  syncDisabled();
+}
+function sameForm(a, b) {
+  return FIELDS.every((k) => (typeof a[k] === "number" ? Math.abs(a[k] - Number(b[k])) < 0.051 : a[k] === b[k]));
+}
+/* greys out inputs that do not apply (no vehicle ahead / no lane on that side) */
+function syncDisabled() {
+  for (const p of ["ahead", "behind"]) {
+    const on = $(p + "_exists").checked;
+    $(p + "_gap_m").disabled = !on;
+    $(p + "_speed_kmh").disabled = !on;
+  }
+  $("ahead_trend").disabled = !$("ahead_exists").checked;
+  const lane = $("lane").value;
+  if (lane === "1") { $("left_lane").value = "none"; }
+  if (lane === "5" || lane === "ramp") { $("right_lane").value = "none"; }
+  $("left_lane").disabled = lane === "1";
+  $("right_lane").disabled = lane === "5" || lane === "ramp";
+}
+for (const k of FIELDS) $(k).addEventListener("input", syncDisabled);
+for (const k of FIELDS) $(k).addEventListener("change", syncDisabled);
+
+/* ============================================================ talking to the server */
+async function api(path, options) {
+  let res;
+  try { res = await fetch(path, options); }
+  catch (e) { throw new Error("Cannot reach the server. Is 'python server.py' still running in the terminal?"); }
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ("Server error " + res.status));
+  return data;
+}
+
+/* ============================================================ status chips (top of the page) */
+async function refreshStatus() {
+  const box = $("status");
+  box.replaceChildren();
+  try {
+    const h = await api("/api/health");
+    box.append(chip("Model", h.model, "ok"), chip("Scenarios", h.scenarios + " real NGSIM scenarios", "ok"));
+    if (h.dry_run) box.append(chip("Mode", "dry run: dummy answers, Llama is not used", "warn"));
+    else box.append(chip("Ollama", h.ollama_running ? "running" : "NOT running: open the Ollama app", h.ollama_running ? "ok" : "bad"));
+  } catch (e) { box.append(chip("Server", e.message, "bad")); }
+}
+function chip(k, v, tone) {
+  const c = el("span", "chip" + (tone ? " " + tone : ""));
+  c.append(el("span", null, k + ":"), el("b", null, v));
+  return c;
+}
+
+/* ============================================================ scenario list */
+async function loadScenarios() {
+  const sel = $("scenario");
+  try {
+    const list = await api("/api/scenarios");
+    sel.replaceChildren(new Option("Choose a scenario (" + list.length + " available)", ""));
+    const groups = {};
+    for (const s of list) (groups[s.type] = groups[s.type] || []).push(s);
+    for (const t of Object.keys(TYPE_NAMES)) {
+      if (!groups[t]) continue;
+      const og = document.createElement("optgroup");
+      og.label = TYPE_NAMES[t] + " (" + groups[t].length + ")";
+      for (const s of groups[t]) og.append(new Option(s.title, s.id));
+      sel.append(og);
+    }
+  } catch (e) { sel.replaceChildren(new Option(e.message, "")); }
+}
+async function pickScenario(id) {
+  if (!id) return;
+  try {
+    const d = await api("/api/scenario/" + encodeURIComponent(id));
+    pickedId = id;
+    originalForm = d.form;
+    pickedReal = d.real_driver;
+    setForm(d.form);
+    $("scenario").value = id;
+    const p = $("preview");
+    p.hidden = false;
+    p.textContent = d.summary;
+  } catch (e) { showError(e.message); }
+}
+function startFromScratch() {
+  pickedId = ""; originalForm = null; pickedReal = null;
+  $("scenario").value = "";
+  $("preview").hidden = true;
+  setForm({ av_speed_kmh: 50, lane: "3", ahead_exists: true, ahead_gap_m: 20, ahead_speed_kmh: 45, ahead_trend: "steady",
+            behind_exists: true, behind_gap_m: 25, behind_speed_kmh: 50, left_lane: "none", right_lane: "none", traffic_100m: 30 });
+}
+$("scenario").addEventListener("change", (e) => pickScenario(e.target.value));
+$("customBtn").addEventListener("click", startFromScratch);
+$("randomBtn").addEventListener("click", () => {
+  const opts = [...$("scenario").querySelectorAll("option")].filter((o) => o.value);
+  if (opts.length) pickScenario(opts[Math.floor(Math.random() * opts.length)].value);
+});
+
+/* ============================================================ asking for a recommendation */
+$("f").addEventListener("submit", async (ev) => {
+  ev.preventDefault();
+  if (busy) return;
+  for (const k of FIELDS) {                                  // check the numbers before sending
+    const n = $(k);
+    if (!n.disabled && n.type === "number" && !n.checkValidity()) { n.reportValidity(); return; }
+  }
+  const form = getForm();
+  const edited = !pickedId || !originalForm || !sameForm(form, originalForm);
+  const body = pickedId && !edited ? { scenario_id: pickedId } : { scenario_id: pickedId || undefined, form };
+  setBusy(true);
+  const started = Date.now();
+  const timer = setInterval(() => showThinking(Math.round((Date.now() - started) / 1000)), 1000);
+  showThinking(0);
+  try {
+    const d = await api("/api/recommend", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    showResult(d, edited);
+  } catch (e) { showError(e.message); }
+  finally { clearInterval(timer); setBusy(false); refreshStatus(); }
+});
+function setBusy(b) {
+  busy = b;
+  $("goBtn").disabled = b;
+  $("goBtn").textContent = b ? "Working..." : "Get recommendation";
+}
+
+/* ============================================================ drawing the results */
+function resetResult() {
+  const r = $("result");
+  r.replaceChildren(el("h2", null, "2. Recommendation"));
+  return r;
+}
+function showThinking(secs) {
+  const r = resetResult();
+  const d = el("div", "empty");
+  d.append(el("span", "spinner"), document.createTextNode("Llama is thinking... " + secs + " s"));
+  d.append(el("p", "hint", "About 30 seconds is normal on this laptop. The very first request can take around 2 minutes while the model loads."));
+  r.append(d);
+}
+function showError(msg) {
+  const r = resetResult();
+  r.append(el("div", "banner bad", msg));
+}
+function tone(kind, value) {
+  const good = { Collision_Risk: { none: "ok", elevated: "warn", critical: "bad" },
+                 Following_Gap: { comfortable: "ok", short: "warn", "very short": "bad" },
+                 Space: { yes: "ok", no: "warn" } };
+  return (good[kind] || {})[value] || "";
+}
+function section(title) {
+  const s = el("div", "section");
+  s.append(el("h3", null, title));
+  return s;
+}
+function showResult(d, edited) {
+  const r = resetResult();
+
+  /* what happened */
+  if (d.notes && d.notes.length) r.append(el("div", "banner info", d.notes.join(" ")));
+
+  /* 1. the situation in plain words */
+  const s1 = section("The situation, in plain words");
+  s1.append(el("p", null, d.summary));
+  const L = d.labels, chips = el("div", "chips");
+  if (typeof L.Vehicle_Ahead === "object") {
+    const a = L.Vehicle_Ahead;
+    chips.append(chip("Gap ahead", a.Following_Gap, tone("Following_Gap", a.Following_Gap)),
+                 chip("Collision risk", a.Collision_Risk, tone("Collision_Risk", a.Collision_Risk)),
+                 chip("Vehicle ahead", a.Ahead_Trend), chip("Gap trend", a.Gap_Trend));
+  } else chips.append(chip("Vehicle ahead", "none"));
+  if (typeof L.Vehicle_Behind === "object") chips.append(chip("Vehicle behind", L.Vehicle_Behind.Behind_Trend));
+  else chips.append(chip("Vehicle behind", "none"));
+  for (const [name, key] of [["Left lane", "Left_Lane"], ["Right lane", "Right_Lane"]]) {
+    const x = L[key];
+    chips.append(x.Lane_Exists === false ? chip(name, "no lane") : chip(name, "space for lane change: " + x.Space_For_Lane_Change, tone("Space", x.Space_For_Lane_Change)));
+  }
+  s1.append(chips);
+  const raw = el("details");
+  raw.append(el("summary", null, "Show exactly what Llama receives"), el("pre", null, JSON.stringify(
+    Object.assign({}, L, { Allowed_Actions: d.allowed_actions, Allowed_Urgency: d.allowed_urgency }), null, 2)));
+  s1.append(raw);
+  r.append(s1);
+
+  /* 2. the safety filter */
+  const s2 = section("Safety filter: actions allowed for this situation");
+  const allowed = el("div", "chips");
+  const chosen = d.valid_json && d.answer ? d.answer.AV_Action : null;
+  for (const a of d.allowed_actions) {
+    const c = el("span", "chip" + (a === chosen ? " chosen" : ""));
+    c.append(el("b", null, a));
+    if (a === chosen) c.append(el("span", null, "(chosen)"));
+    allowed.append(c);
+  }
+  s2.append(allowed, el("p", "hint", "Allowed urgency levels: " + d.allowed_urgency.join(", ") + ". Llama must choose from these."));
+  r.append(s2);
+
+  /* 3. Llama's recommendation */
+  const s3 = section("Llama's recommendation");
+  if (d.valid_json && typeof d.answer === "object") {
+    const a = d.answer;
+    const box = el("div", "answer " + String(a.Urgency).toLowerCase());
+    box.append(el("p", "action", a.AV_Action));
+    box.append(chip("Urgency", a.Urgency, { Low: "ok", Medium: "warn", High: "bad" }[a.Urgency] || ""));
+    const why = el("p"); why.append(el("span", "k", "Reason: "), document.createTextNode(a.Reason));
+    const safe = el("p"); safe.append(el("span", "k", "Safety consideration: "), document.createTextNode(a.Safety_Consideration));
+    box.append(why, safe);
+    s3.append(box);
+  } else {
+    s3.append(el("div", "banner bad", "Llama did not return a valid structured answer: " + String(d.answer)));
+  }
+  r.append(s3);
+
+  /* 4. the automatic check and the retry */
+  const s4 = section("Automatic check");
+  if (!d.problems.length) {
+    s4.append(el("div", "banner ok", "No contradiction between the explanation and the scenario data was found."));
+  } else {
+    const b = el("div", "banner warn", "The explanation may contradict the data:");
+    const ul = el("ul");
+    for (const p of d.problems) ul.append(el("li", null, p.problem + (p.sentence ? ' - "' + p.sentence + '"' : "")));
+    b.append(ul);
+    s4.append(b);
+  }
+  if (d.attempts === 2) {
+    const note = el("div", "banner info", "Retried once: the first answer had a problem, so Llama was told what was wrong and answered again. The answer above is the second one.");
+    note.style.marginTop = "8px";
+    s4.append(note);
+    const det = el("details");
+    det.append(el("summary", null, "Show the first answer and what was wrong"));
+    const ul = el("ul");
+    for (const p of d.first_problems) ul.append(el("li", null, p.problem + (p.sentence ? ' - "' + p.sentence + '"' : "")));
+    det.append(ul, el("pre", null, JSON.stringify(d.first_answer, null, 2)));
+    s4.append(det);
+  }
+  r.append(s4);
+
+  /* 5. reference only: what the real driver did */
+  if (d.real_driver && d.real_driver.Speed_Change_mps !== null && !edited) {
+    const s5 = section("For reference only");
+    const x = d.real_driver;
+    s5.append(el("p", null, "In the real NGSIM data, this driver changed speed by " + x.Speed_Change_mps + " m/s over the next 3 seconds and " +
+      (x.Changed_Lane ? "changed lane." : "stayed in the lane.") + " A human driver is not always right, and Llama never sees this."));
+    r.append(s5);
+  } else if (edited) {
+    r.append(el("p", "hint", "You changed the values, so this is a custom situation (no real-driver reference)."));
+  }
+  r.append(el("p", "hint", "Scenario: " + d.scenario_id + " | answered in " + d.seconds + " s"));
+}
+
+/* ============================================================ start */
+startFromScratch();
+loadScenarios();
+refreshStatus();
+setInterval(() => { if (!busy) refreshStatus(); }, 20000);
+</script>
+</body>
+</html>

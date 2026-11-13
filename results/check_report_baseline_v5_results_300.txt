@@ -1,0 +1,307 @@
+Answers checked: 300
+Consistent (no flag): 298/300 = 99%
+Flags by rule: E: 2
+A = filter, B = critical risk, C = lane change, D = merge, E = text vs data
+
+N0277 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0248 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0061 (close_following): Reduce speed and increase following distance / High  ->  OK
+N0109 (normal): Maintain speed and lane / Low  ->  OK
+N0152 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0153 (on_ramp): Accelerate and merge into the main lanes / Low  ->  OK
+N0067 (new_leader_close): Reduce speed and increase following distance / Medium  ->  OK
+N0006 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0265 (close_following): Brake firmly / High  ->  OK
+N0245 (normal): Maintain speed and lane / Low  ->  OK
+N0297 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0136 (on_ramp): Reduce speed slightly / Low  ->  OK
+N0012 (new_leader_close): Prepare to change lane to the right / Medium  ->  OK
+N0230 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0160 (close_following): Brake firmly / High  ->  OK
+N0079 (normal): Maintain speed and lane / Low  ->  OK
+N0168 (leader_braking): Brake firmly / High  ->  OK
+N0059 (on_ramp): Accelerate gently / Medium  ->  FLAGGED
+      E: says the vehicle behind is closing in, data: 'gap is growing'  <- "The on-ramp is accelerating and the main lane is free, but the vehicle behind on the ramp is approaching too quickly."
+N0134 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0154 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0260 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0286 (normal): Maintain speed and lane / Low  ->  OK
+N0299 (leader_braking): Reduce speed slightly / Medium  ->  OK
+N0124 (on_ramp): Brake firmly / High  ->  OK
+N0123 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0169 (lane_change): Reduce speed slightly / Low  ->  OK
+N0227 (close_following): Prepare to change lane to the right / Medium  ->  OK
+N0048 (normal): Maintain speed and lane / Low  ->  OK
+N0045 (leader_braking): Maintain speed and lane / Low  ->  OK
+N0070 (on_ramp): Accelerate and merge into the main lanes / Low  ->  OK
+N0117 (new_leader_close): Reduce speed and increase following distance / High  ->  OK
+N0025 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0087 (close_following): Reduce speed slightly / Medium  ->  OK
+N0115 (normal): Accelerate gently / Medium  ->  OK
+N0083 (leader_braking): Reduce speed and increase following distance / Medium  ->  OK
+N0097 (on_ramp): Accelerate and merge into the main lanes / Low  ->  OK
+N0084 (new_leader_close): Prepare to change lane to the right / Medium  ->  OK
+N0138 (lane_change): Maintain speed and lane / Low  ->  OK
+N0285 (close_following): Reduce speed and increase following distance / High  ->  OK
+N0282 (normal): Reduce speed slightly / Medium  ->  OK
+N0076 (leader_braking): Brake firmly / High  ->  OK
+N0269 (on_ramp): Accelerate gently / Medium  ->  OK
+N0062 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0017 (lane_change): Maintain speed and lane / Low  ->  OK
+N0214 (close_following): Reduce speed slightly / Medium  ->  OK
+N0081 (normal): Reduce speed slightly / Low  ->  OK
+N0034 (leader_braking): Reduce speed and increase following distance / High  ->  OK
+N0092 (on_ramp): Accelerate gently / Medium  ->  OK
+N0237 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0173 (lane_change): Maintain speed and lane / Low  ->  OK
+N0137 (close_following): Brake firmly / High  ->  OK
+N0069 (normal): Reduce speed slightly / Medium  ->  OK
+N0107 (leader_braking): Reduce speed slightly / Medium  ->  OK
+N0049 (on_ramp): Accelerate gently / Low  ->  OK
+N0040 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0071 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0110 (close_following): Reduce speed slightly / Medium  ->  OK
+N0188 (normal): Reduce speed slightly / Medium  ->  OK
+N0009 (leader_braking): Brake firmly / High  ->  OK
+N0197 (on_ramp): Accelerate gently / Low  ->  OK
+N0196 (new_leader_close): Brake firmly / High  ->  OK
+N0198 (lane_change): Accelerate gently / Low  ->  OK
+N0251 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0077 (normal): Reduce speed and increase following distance / Medium  ->  OK
+N0186 (leader_braking): Brake firmly / High  ->  OK
+N0293 (on_ramp): Accelerate gently / Low  ->  OK
+N0014 (new_leader_close): Brake firmly / High  ->  OK
+N0195 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0125 (close_following): Reduce speed slightly / Medium  ->  OK
+N0249 (normal): Maintain speed and lane / Low  ->  OK
+N0174 (leader_braking): Reduce speed slightly / Medium  ->  OK
+N0053 (on_ramp): Accelerate gently / Low  ->  OK
+N0287 (new_leader_close): Reduce speed slightly / Low  ->  OK
+N0132 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0033 (close_following): Brake firmly / High  ->  OK
+N0004 (normal): Reduce speed slightly / Medium  ->  OK
+N0283 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0044 (on_ramp): Accelerate gently / Low  ->  OK
+N0239 (new_leader_close): Reduce speed and increase following distance / Medium  ->  OK
+N0179 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0073 (close_following): Brake firmly / High  ->  OK
+N0126 (normal): Maintain speed and lane / Low  ->  OK
+N0263 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0032 (on_ramp): Accelerate gently / Low  ->  OK
+N0270 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0054 (lane_change): Maintain speed and lane / Low  ->  OK
+N0029 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0102 (normal): Reduce speed slightly / Low  ->  OK
+N0242 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0178 (on_ramp): Accelerate gently / Low  ->  OK
+N0292 (new_leader_close): Brake firmly / High  ->  OK
+N0016 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0068 (close_following): Reduce speed slightly / Medium  ->  OK
+N0274 (normal): Maintain speed and lane / Low  ->  OK
+N0008 (leader_braking): Brake firmly / High  ->  OK
+N0177 (on_ramp): Accelerate and merge into the main lanes / Medium  ->  OK
+N0133 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0290 (lane_change): Brake firmly / High  ->  OK
+N0158 (close_following): Reduce speed slightly / Medium  ->  OK
+N0031 (normal): Maintain speed and lane / Low  ->  OK
+N0276 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0121 (on_ramp): Accelerate and merge into the main lanes / Low  ->  OK
+N0159 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0203 (lane_change): Maintain speed and lane / Low  ->  OK
+N0147 (close_following): Reduce speed slightly / Medium  ->  OK
+N0284 (normal): Maintain speed and lane / Low  ->  OK
+N0193 (leader_braking): Maintain speed and lane / Low  ->  OK
+N0157 (on_ramp): Accelerate gently / Low  ->  OK
+N0001 (new_leader_close): Prepare to change lane to the right / Medium  ->  OK
+N0056 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0228 (close_following): Reduce speed slightly / Medium  ->  OK
+N0210 (normal): Maintain speed and lane / Low  ->  OK
+N0023 (leader_braking): Maintain speed and lane / Low  ->  OK
+N0148 (on_ramp): Accelerate gently / Medium  ->  OK
+N0278 (new_leader_close): Brake firmly / High  ->  OK
+N0247 (lane_change): Prepare to change lane to the right / Medium  ->  OK
+N0171 (close_following): Brake firmly / High  ->  OK
+N0209 (normal): Maintain speed and lane / Low  ->  OK
+N0223 (leader_braking): Reduce speed slightly / High  ->  OK
+N0075 (on_ramp): Accelerate gently / Low  ->  OK
+N0212 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0252 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0119 (close_following): Brake firmly / High  ->  OK
+N0256 (normal): Reduce speed slightly / Medium  ->  OK
+N0208 (leader_braking): Reduce speed and increase following distance / Medium  ->  OK
+N0185 (on_ramp): Accelerate gently / Low  ->  OK
+N0180 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0200 (lane_change): Maintain speed and lane / Low  ->  OK
+N0205 (close_following): Reduce speed and increase following distance / High  ->  OK
+N0051 (normal): Reduce speed slightly / Medium  ->  OK
+N0010 (leader_braking): Reduce speed and increase following distance / Medium  ->  OK
+N0101 (on_ramp): Accelerate and merge into the main lanes / Low  ->  OK
+N0170 (new_leader_close): Reduce speed and increase following distance / High  ->  OK
+N0020 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0241 (close_following): Reduce speed slightly / High  ->  OK
+N0015 (normal): Maintain speed and lane / Low  ->  OK
+N0272 (leader_braking): Brake firmly / High  ->  OK
+N0261 (on_ramp): Accelerate gently / Low  ->  OK
+N0189 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0258 (lane_change): Reduce speed and increase following distance / High  ->  OK
+N0099 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0253 (normal): Reduce speed slightly / Medium  ->  OK
+N0190 (leader_braking): Maintain speed and lane / Low  ->  OK
+N0104 (on_ramp): Accelerate gently / Low  ->  OK
+N0113 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0063 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0064 (close_following): Brake firmly / High  ->  OK
+N0114 (normal): Maintain speed and lane / Low  ->  OK
+N0167 (leader_braking): Brake firmly / High  ->  OK
+N0218 (on_ramp): Accelerate gently / Low  ->  OK
+N0202 (new_leader_close): Prepare to change lane to the right / Medium  ->  OK
+N0280 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0259 (close_following): Reduce speed slightly / Medium  ->  OK
+N0028 (normal): Maintain speed and lane / Low  ->  OK
+N0289 (leader_braking): Maintain speed and lane / Low  ->  OK
+N0150 (on_ramp): Brake firmly / High  ->  OK
+N0275 (new_leader_close): Brake firmly / High  ->  OK
+N0234 (lane_change): Prepare to change lane to the right / Medium  ->  OK
+N0143 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0279 (normal): Reduce speed slightly / Medium  ->  FLAGGED
+      E: says the vehicle behind is closing in, data: 'gap is growing'  <- "The vehicle ahead is steady and the vehicle behind is closing in, so the AV should slow down slightly."
+N0090 (leader_braking): Maintain speed and lane / Low  ->  OK
+N0161 (on_ramp): Accelerate gently / Low  ->  OK
+N0273 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0038 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0246 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0224 (normal): Maintain speed and lane / Low  ->  OK
+N0165 (leader_braking): Reduce speed and increase following distance / High  ->  OK
+N0236 (on_ramp): Brake firmly / High  ->  OK
+N0191 (new_leader_close): Prepare to change lane to the right / Medium  ->  OK
+N0166 (lane_change): Brake firmly / High  ->  OK
+N0022 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0235 (normal): Maintain speed and lane / Low  ->  OK
+N0074 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0264 (on_ramp): Accelerate gently / Low  ->  OK
+N0213 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0041 (lane_change): Maintain speed and lane / Low  ->  OK
+N0106 (close_following): Reduce speed slightly / Medium  ->  OK
+N0037 (normal): Maintain speed and lane / Low  ->  OK
+N0298 (leader_braking): Reduce speed and increase following distance / Medium  ->  OK
+N0111 (on_ramp): Accelerate and merge into the main lanes / Low  ->  OK
+N0096 (new_leader_close): Brake firmly / High  ->  OK
+N0183 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0011 (close_following): Brake firmly / High  ->  OK
+N0296 (normal): Reduce speed slightly / Medium  ->  OK
+N0176 (leader_braking): Brake firmly / High  ->  OK
+N0184 (new_leader_close): Reduce speed and increase following distance / Medium  ->  OK
+N0120 (lane_change): Accelerate gently / Medium  ->  OK
+N0201 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0250 (normal): Maintain speed and lane / Low  ->  OK
+N0130 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0294 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0026 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0019 (close_following): Prepare to change lane to the right / Medium  ->  OK
+N0127 (normal): Maintain speed and lane / Low  ->  OK
+N0095 (leader_braking): Maintain speed and lane / Low  ->  OK
+N0030 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0128 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0021 (close_following): Reduce speed slightly / Medium  ->  OK
+N0057 (normal): Reduce speed slightly / Medium  ->  OK
+N0142 (leader_braking): Reduce speed slightly / Medium  ->  OK
+N0232 (new_leader_close): Brake firmly / High  ->  OK
+N0151 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0257 (close_following): Brake firmly / High  ->  OK
+N0100 (normal): Maintain speed and lane / Low  ->  OK
+N0172 (leader_braking): Reduce speed and increase following distance / Medium  ->  OK
+N0018 (new_leader_close): Maintain speed and lane / Low  ->  OK
+N0116 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0146 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0112 (normal): Reduce speed slightly / Medium  ->  OK
+N0291 (leader_braking): Maintain speed and lane / Low  ->  OK
+N0103 (new_leader_close): Reduce speed and increase following distance / Medium  ->  OK
+N0204 (lane_change): Maintain speed and lane / Low  ->  OK
+N0088 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0211 (normal): Reduce speed slightly / Low  ->  OK
+N0135 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0226 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0080 (lane_change): Brake firmly / High  ->  OK
+N0255 (close_following): Brake firmly / High  ->  OK
+N0281 (normal): Maintain speed and lane / Low  ->  OK
+N0244 (leader_braking): Brake firmly / High  ->  OK
+N0199 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0288 (lane_change): Maintain speed and lane / Low  ->  OK
+N0086 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0145 (normal): Maintain speed and lane / Low  ->  OK
+N0043 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0085 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0240 (lane_change): Brake firmly / High  ->  OK
+N0013 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0206 (normal): Reduce speed slightly / Medium  ->  OK
+N0194 (leader_braking): Brake firmly / High  ->  OK
+N0182 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0300 (lane_change): Brake firmly / High  ->  OK
+N0050 (close_following): Brake firmly / High  ->  OK
+N0268 (normal): Reduce speed slightly / Low  ->  OK
+N0105 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0091 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0267 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0262 (close_following): Reduce speed slightly / Medium  ->  OK
+N0094 (normal): Maintain speed and lane / Low  ->  OK
+N0108 (leader_braking): Brake firmly / High  ->  OK
+N0254 (new_leader_close): Brake firmly / High  ->  OK
+N0139 (lane_change): Accelerate gently / Low  ->  OK
+N0220 (close_following): Brake firmly / High  ->  OK
+N0042 (normal): Reduce speed slightly / Medium  ->  OK
+N0066 (leader_braking): Brake firmly / High  ->  OK
+N0175 (new_leader_close): Reduce speed slightly / Medium  ->  OK
+N0192 (lane_change): Maintain speed and lane / Low  ->  OK
+N0238 (close_following): Reduce speed slightly / Medium  ->  OK
+N0215 (normal): Maintain speed and lane / Low  ->  OK
+N0141 (leader_braking): Maintain speed and lane / Low  ->  OK
+N0140 (new_leader_close): Reduce speed slightly / Low  ->  OK
+N0219 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0217 (close_following): Reduce speed slightly / High  ->  OK
+N0221 (normal): Accelerate gently / Medium  ->  OK
+N0089 (leader_braking): Reduce speed and increase following distance / High  ->  OK
+N0216 (lane_change): Maintain speed and lane / Low  ->  OK
+N0225 (close_following): Reduce speed slightly / Medium  ->  OK
+N0131 (leader_braking): Maintain speed and lane / Low  ->  OK
+N0163 (lane_change): Maintain speed and lane / Low  ->  OK
+N0093 (close_following): Prepare to change lane to the right / Medium  ->  OK
+N0295 (leader_braking): Reduce speed and increase following distance / Medium  ->  OK
+N0155 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0003 (close_following): Reduce speed and increase following distance / High  ->  OK
+N0164 (leader_braking): Brake firmly / High  ->  OK
+N0149 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0039 (close_following): Reduce speed slightly / Medium  ->  OK
+N0222 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0007 (lane_change): Maintain speed and lane / Low  ->  OK
+N0231 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0065 (leader_braking): Brake firmly / High  ->  OK
+N0144 (lane_change): Prepare to change lane to the left / Medium  ->  OK
+N0078 (close_following): Reduce speed slightly / Medium  ->  OK
+N0266 (leader_braking): Reduce speed and increase following distance / Medium  ->  OK
+N0002 (lane_change): Accelerate gently / Medium  ->  OK
+N0118 (close_following): Reduce speed slightly / High  ->  OK
+N0072 (leader_braking): Reduce speed and increase following distance / Medium  ->  OK
+N0055 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0129 (close_following): Reduce speed slightly / Medium  ->  OK
+N0233 (leader_braking): Reduce speed slightly / Medium  ->  OK
+N0271 (lane_change): Reduce speed and increase following distance / High  ->  OK
+N0082 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0036 (leader_braking): Reduce speed slightly / Medium  ->  OK
+N0058 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0181 (close_following): Reduce speed slightly / Medium  ->  OK
+N0187 (leader_braking): Brake firmly / High  ->  OK
+N0162 (lane_change): Maintain speed and lane / Low  ->  OK
+N0122 (close_following): Brake firmly / High  ->  OK
+N0047 (leader_braking): Brake firmly / High  ->  OK
+N0243 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0046 (close_following): Brake firmly / High  ->  OK
+N0052 (leader_braking): Reduce speed slightly / Medium  ->  OK
+N0005 (lane_change): Maintain speed and lane / Low  ->  OK
+N0229 (close_following): Reduce speed slightly / High  ->  OK
+N0156 (leader_braking): Reduce speed and increase following distance / Medium  ->  OK
+N0035 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0024 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0207 (leader_braking): Brake firmly / High  ->  OK
+N0060 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0027 (close_following): Reduce speed and increase following distance / Medium  ->  OK
+N0098 (leader_braking): Reduce speed slightly / Low  ->  OK

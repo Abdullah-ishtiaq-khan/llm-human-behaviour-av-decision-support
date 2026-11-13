@@ -1,0 +1,28 @@
+Answers checked: 20
+Consistent (no flag): 17/20 = 85%
+Flags by rule: E: 3
+A = filter, B = critical risk, C = lane change, D = merge, E = text vs data
+
+N0277 (new_leader_close): Reduce speed slightly / Medium  ->  FLAGGED
+      E: says the AV is approaching the vehicle ahead, data: 'gap is growing'  <- "The AV is approaching the vehicle ahead too quickly and the vehicle behind is closing in."
+N0248 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0061 (close_following): Reduce speed and increase following distance / High  ->  OK
+N0109 (normal): Maintain speed and lane / Low  ->  OK
+N0152 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0153 (on_ramp): Accelerate and merge into the main lanes / Low  ->  OK
+N0067 (new_leader_close): Reduce speed and increase following distance / Medium  ->  OK
+N0006 (lane_change): Reduce speed slightly / Medium  ->  OK
+N0265 (close_following): Brake firmly / High  ->  OK
+N0245 (normal): Maintain speed and lane / Low  ->  OK
+N0297 (leader_braking): Reduce speed slightly / Low  ->  OK
+N0136 (on_ramp): Reduce speed slightly / Low  ->  OK
+N0012 (new_leader_close): Prepare to change lane to the right / Medium  ->  OK
+N0230 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
+N0160 (close_following): Brake firmly / High  ->  OK
+N0079 (normal): Maintain speed and lane / Low  ->  OK
+N0168 (leader_braking): Brake firmly / High  ->  OK
+N0059 (on_ramp): Accelerate gently / Medium  ->  FLAGGED
+      E: says the vehicle behind is closing in, data: 'gap is growing'  <- "The on-ramp is accelerating and the main lane is free, but the vehicle behind on the ramp is closing in."
+N0134 (new_leader_close): Reduce speed slightly / Medium  ->  FLAGGED
+      E: says the vehicle behind is closing in, data: 'gap is growing'  <- "The vehicle ahead is speeding up and the gap is growing, and the vehicle behind is also closing in."
+N0154 (lane_change): Reduce speed and increase following distance / Medium  ->  OK
